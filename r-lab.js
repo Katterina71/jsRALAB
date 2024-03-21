@@ -53,22 +53,26 @@ for (let rowCSV of rowsCSV) {
 
   // Part 2: Refactoring Old Code
 
-const csvString = "ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctors Assistant,26";
+const csvString = "ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctors Assistant,26"; // Baseline for change
+// Splitting the CSV data into rows at each newline
 let rows = csvString.split("\n");
-let arrayOfRows = [];
 
+let arrayOfRows = []; // Array for collect  csvStringData
+
+//Additing Data to new array arrayOfRows
 for (let i = 0; i < rows.length; i++) {
   let column = rows[i].split(",");
   arrayOfRows.push(column);
 }
-
-console.log(arrayOfRows);
+// Logging the cells 
+console.log(`\nPart 2: Expanding Functionality: \n ${arrayOfRows}`);
 
 //Part 3: Transforming Data
 
-const arrayKeys = arrayOfRows[0];
-const objArray = [];
+const arrayKeys = arrayOfRows[0]; // Array value to creat keys for Object;
+const objArray = []; // New Array for Object;
 
+//Additing elements from arrayOfRows to transforming Data to new Array 
 for ( let i = 0; i < arrayOfRows.length; i++) {
     const objCSV = {};
     for (let j = 0; j < arrayKeys.length; j++ ) {
@@ -76,17 +80,21 @@ for ( let i = 0; i < arrayOfRows.length; i++) {
     }
     objArray.push(objCSV);  
 }
+// Remove first element with headers
+objArray.shift(); 
+
+// Logging the Array 
+console.log("\n Transforming Data \n");
 console.log(objArray);
 
 
 //Part 4: Sorting and Manipulating Data
 
-
 //Sorted array
 objArray.sort((a, b) => a.id - b.id);
-
 // Remove the last element from the sorted array.
 objArray.pop();
+console.log("\n Sorting Data in Array: \n");
 console.log(objArray);
 
 // Insert the following object at index 1:
@@ -96,46 +104,55 @@ objArray.splice(1,0,addArray);
 //Sorted array
 objArray.sort((a, b) => a.id - b.id);
 
-// console.log(objArray);
 
 // Add the following object to the end of the array:
 addArray = { id: "7", name: "Bilbo", occupation: "None", age: "111" }
 objArray.push(addArray);
+console.log("\n Remove and add new rows \n");
 console.log(objArray);
 
 //Calculate the average age of the group
-let totalAges = 0;
-let averageAge = 0;
+let totalAges = 0; // Number value for sum of ages for full Object
+let averageAge = 0; // Number value for average Age for full Object
 
 
-    for (let i=1; i<objArray.length; i++) {
-        totalAges += parseInt(objArray[i].age);  // Convert age to int and accumulate
+    for (let i=0; i<objArray.length; i++) {
+        // Convert age to int from string and accumulate
+        totalAges += parseInt(objArray[i].age);  
     }
 
 // Calculate average age
-averageAge = Math.round(totalAges/(objArray.length-1)); 
+averageAge = Math.round(totalAges/(objArray.length)); 
 console.log(`\nCalculate the average age of the group:  \n ${averageAge}`);
 
 //Part 5: Full Circle
 let arrayCSVStringCells = [];
 let arrayCSVStringRows = [];
 
-//Add all values from ObjectArray to Array with Cells and Rows
+// Get Keys for Header for new Array;
+let header = Object.keys(objArray[0]); 
 
+//Add all values from ObjectArray to Array with Cells and Rows
 for (let i=0; i<objArray.length; i++){
+  // Object.entries - static method returns an array of a given object's own enumerable string-keyed property key-value pairs.
 for (const [key, value] of Object.entries(objArray[i])) {
-  arrayCSVStringCells.push(value);
+  // Additing cell value in arrayCSVStringCell by keys
+  arrayCSVStringCells.push(value);  
 }
+// Additing arrayCSVStringCell like a new row every time
 arrayCSVStringRows.push(arrayCSVStringCells);
 arrayCSVStringCells = [];
 }
 
-// console.log(arrayCSVStringRows); // Check array of rows and cells
+// Add the first row with headers
+arrayCSVStringRows.unshift(header);
+
+// console.log(arrayCSVStringRows);  // Check array of rows and cells
 
 // Add all values in one string
-let stringCSV = "";
+let stringCSV = ""; // NEW CSV Data - String value
 
-
+//Additing each element to string array
 for (let i = 0; i < arrayCSVStringRows.length; i++) {
   for (let j=0; j<arrayCSVStringRows[i].length; j++) {
       if (j === arrayCSVStringRows[i].length-1){
