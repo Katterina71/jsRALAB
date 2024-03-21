@@ -104,7 +104,6 @@ objArray.push(addArray);
 console.log(objArray);
 
 //Calculate the average age of the group
-
 let totalAges = 0;
 let averageAge = 0;
 
@@ -115,7 +114,7 @@ let averageAge = 0;
 
 // Calculate average age
 averageAge = Math.round(totalAges/(objArray.length-1)); 
-console.log(averageAge);
+console.log(`\nCalculate the average age of the group:  \n ${averageAge}`);
 
 //Part 5: Full Circle
 let arrayCSVStringCells = [];
@@ -131,22 +130,26 @@ arrayCSVStringRows.push(arrayCSVStringCells);
 arrayCSVStringCells = [];
 }
 
-console.log(arrayCSVStringRows);
+// console.log(arrayCSVStringRows); // Check array of rows and cells
 
 // Add all values in one string
-let stringCSV ="";
+let stringCSV = "";
+
 
 for (let i = 0; i < arrayCSVStringRows.length; i++) {
-  for (let j in arrayCSVStringRows[i]) {
-    stringCSV +=arrayCSVStringRows[i][j]+",";
+  for (let j=0; j<arrayCSVStringRows[i].length; j++) {
+      if (j === arrayCSVStringRows[i].length-1){
+        stringCSV +=arrayCSVStringRows[i][j];
+        continue;
+      }
+      stringCSV +=arrayCSVStringRows[i][j]+',';
   }
-  stringCSV= stringCSV + "\n";
+  if (i === arrayCSVStringRows.length-1) {
+    continue;
+  }
+  stringCSV +="\n";
 }
 
-console.log(stringCSV);
-
-
-
-
-
+console.log(`\n Part 5: Full Circle transform the final set of data back into CSV format: \n ${stringCSV}`);
+console.log(`\n Original CSV example data: \n ${csvString}`);
 
