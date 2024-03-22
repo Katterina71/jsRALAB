@@ -130,7 +130,21 @@ let arrayCSVStringCells = [];
 let arrayCSVStringRows = [];
 
 // Get Keys for Header for new Array;
-let header = Object.keys(objArray[0]); 
+let arrayKey = Object.keys(objArray[0]); 
+
+
+// Transform the first element to uppercase and Capitalize the first letter of other items
+
+let header = arrayKey.map((item, index) => {
+  // Uppercase the first item
+  if (index === 0) {
+    return item.toUpperCase();
+  } else {
+    // Capitalize the first letter of other items
+    return item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
+  }
+});
+
 
 //Add all values from ObjectArray to Array with Cells and Rows
 for (let i=0; i<objArray.length; i++){
@@ -143,6 +157,7 @@ for (const [key, value] of Object.entries(objArray[i])) {
 arrayCSVStringRows.push(arrayCSVStringCells);
 arrayCSVStringCells = [];
 }
+
 
 // Add the first row with headers
 arrayCSVStringRows.unshift(header);
